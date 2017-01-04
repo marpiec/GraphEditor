@@ -42,8 +42,6 @@ namespace d3tools {
 
                 const x = d3.mouse(document.body)[0];
                 const y = d3.mouse(document.body)[1];
-                const x1 = (<any>d3.event).pageX;
-                const y1 = (<any>d3.event).pageY;
                 const eventTarget = d3.select(<any>this);
                 const origin = externalThis.dragOrigin(eventTarget, new PositionXY(x, y), <T>d);
                 (<any>this)["__origin__"] = origin;
