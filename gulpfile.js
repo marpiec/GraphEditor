@@ -14,6 +14,7 @@ var buildDir = function(path) {return './build/' + path};
 var tmpDir = function(path) {return './build/tmp/' + path};
 var appDir = function(path) {return './app/' + path};
 var srcDir = function(paths) {return paths.map(function(path) {return './app/scripts/' + path})};
+var libsDir = function(paths) {return paths.map(function(path) {return './app/libs.d.ts/' + path})};
 var libsDefinitionsDir = function(path) {return './node_modules/@types/' + path};
 var stylesDir = function(path) {return './app/styles/' + path};
 var npmModulesDir = function(path) {return './node_modules/' + path};
@@ -36,7 +37,7 @@ gulp.task('scripts-libs', function() {
         npmDependency('lodash/lodash.js', 'lodash/lodash.min.js', true), // Utility library
         npmDependency('moment/src/moment.js', 'moment/min/moment.min.js', true), // Date and time manipulation library
         npmDependency('i18next/dist/umd/i18next.js', 'i18next/dist/umd/i18next.min.js', true), // Internationalization library
-        npmDependency('d3/build/d3.js', 'd3/build/d3.min.js', true) // Data/HTML binding library
+        npmDependency('d3/d3.js', 'd3/d3.min.js', true) // Data/HTML binding library
     ]).pipe(concat('libs.js')).pipe(gulp.dest(releaseDevDir('scripts/')))
 });
 
@@ -47,7 +48,9 @@ gulp.task('scripts', function () {
         srcDir([
             'tools/PositionXY.ts', 'tools/DragBehavior.ts',
             'graph/GraphModel.ts', 'graph/GraphCommandBus.ts', 'graph/GraphController.ts',
-            'Main.ts']).concat(libsDefinitionsDir('**/*.ts')))
+            'Main.ts'])
+            .concat(libsDir(['**/*.ts']))
+            .concat(libsDefinitionsDir('**/*.ts')))
         .pipe(sourcemaps.init()) // This means sourcemaps will be generated
         .pipe(ts({
             noImplicitAny: true,

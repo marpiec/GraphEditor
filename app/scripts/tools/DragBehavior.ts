@@ -6,24 +6,24 @@ namespace d3tools {
      */
     export abstract class DragBehavior<T> {
 
-        private selection: d3.Selection<any, T, any, any>;
+        private selection: d3.Selection<T>;
         /** Dragged distance is used to determine if it was a drag, or a click. */
         private draggedDistance: number = 0;
 
-        constructor(selection: d3.Selection<any, T, any, any>) {
+        constructor(selection: d3.Selection<T>) {
             this.selection = selection;
         }
 
-        abstract dragOrigin(draggedElement: d3.Selection<any, T, any, any>, eventPosition: PositionXY, model: T): {x: number;y: number};
+        abstract dragOrigin(draggedElement: d3.Selection<T>, eventPosition: PositionXY, model: T): {x: number;y: number};
 
-        abstract dragStarted(draggedElement: d3.Selection<any, T, any, any>, eventPosition: PositionXY, model: T): void;
+        abstract dragStarted(draggedElement: d3.Selection<T>, eventPosition: PositionXY, model: T): void;
 
-        abstract dragged(draggedElement: d3.Selection<any, T, any, any>, eventPosition: PositionXY, model: T): void;
+        abstract dragged(draggedElement: d3.Selection<T>, eventPosition: PositionXY, model: T): void;
 
-        abstract dragEnded(draggedElement: d3.Selection<any, T, any, any>, eventPosition: PositionXY, model: T): void;
+        abstract dragEnded(draggedElement: d3.Selection<T>, eventPosition: PositionXY, model: T): void;
 
         init() {
-            const drag = d3.drag()
+            const drag = d3.behavior.drag()
                 .origin(this.dragOriginInternal())
                 .on("dragstart", this.internalStart())
                 .on("drag", this.internalDragged())
