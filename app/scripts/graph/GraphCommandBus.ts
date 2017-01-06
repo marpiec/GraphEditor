@@ -34,6 +34,13 @@ namespace graph {
                 this.callUpdateListeners();
             }
         }
+
+        addNode(x: number, y: number) {
+            let maxId = 0;
+            this.model.nodes.forEach(n => maxId = Math.max(maxId, n.id));
+            this.model.nodes.push(new GraphNode(maxId + 1, new PositionXY(x, y)));
+            this.callUpdateListeners();
+        }
     }
 
 }

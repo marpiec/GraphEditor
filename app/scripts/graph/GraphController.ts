@@ -33,12 +33,15 @@ namespace graph {
 
             d3.select("body").on("keydown", () => {
                 const deleteKeyCode = 46;
-                console.log(d3.event);
                 if((<KeyboardEvent>d3.event).keyCode === deleteKeyCode) {
                     this.commandBus.deleteActiveElement();
                 }
             });
 
+            this.canvas.on("dblclick", () => {
+                const mouseEvent = (<MouseEvent>d3.event);
+                this.commandBus.addNode(mouseEvent.x, mouseEvent.y);
+            });
 
             this.updateContainerSize();
 
@@ -88,7 +91,10 @@ namespace graph {
                 .attr("x2", (d: GraphEdge) => this.model.nodeById(d.toNodeId).position.x)
                 .attr("y2", (d: GraphEdge) => this.model.nodeById(d.toNodeId).position.y)
                 .classed("active", (d: GraphEdge) => this.model.activeElement === d)
-                .on("click", (d: GraphEdge) => this.commandBus.activateElement(d));
+                .on("click", (d: GraphEdge) => {
+                    this.commandBus.activateElement(d);
+                    (<MouseEvent>d3.event).preventDefault();
+                });
         }
 
         private updateNodesView() {
@@ -110,7 +116,10 @@ namespace graph {
                 .attr("cy", (d: GraphNode) => d.position.y)
                 .attr("r", this.config.nodesRadius)
                 .classed("active", (d: GraphNode) => this.model.activeElement === d)
-                .on("click", (d: GraphNode) => this.commandBus.activateElement(d));
+                .on("click", (d: GraphNode) => {
+                    this.commandBus.activateElement(d);
+                    (<MouseEvent>d3.event).preventDefault();
+                });
         }
     }
 
