@@ -10,7 +10,7 @@
 
     line.graphEdge {
       stroke: #535557;
-      stroke-width: 2;
+      stroke-width: 4;
       cursor: pointer;
 
       &.active {
@@ -24,7 +24,7 @@
 
     circle.graphNode {
       stroke: #616161;
-      stroke-width: 3;
+      stroke-width: 4;
       fill: #d6d6d6;
       cursor: pointer;
 

@@ -1,7 +1,7 @@
 namespace graph {
 
     export class GraphConfig {
-        readonly nodesRadius = 20;
+        readonly nodesRadius = 30;
     }
 
 
