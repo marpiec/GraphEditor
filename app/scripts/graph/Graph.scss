@@ -1,0 +1,37 @@
+.canvas {
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+
+  .edgesLayer {
+
+    line.graphEdge {
+      stroke: #535557;
+      stroke-width: 2;
+      cursor: pointer;
+
+      &.active {
+        stroke: #ff7200;
+      }
+    }
+
+  }
+
+  .nodesLayer {
+
+    circle.graphNode {
+      stroke: #616161;
+      stroke-width: 3;
+      fill: #d6d6d6;
+      cursor: pointer;
+
+      &.active {
+        stroke: #ff7200;
+      }
+    }
+
+  }
+}

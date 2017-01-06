@@ -47,7 +47,7 @@ gulp.task('scripts', function () {
     var tsResult = gulp.src(
         srcDir([
             'tools/PositionXY.ts', 'tools/DragBehavior.ts',
-            'graph/GraphModel.ts', 'graph/GraphCommandBus.ts', 'graph/GraphController.ts',
+            'graph/GraphConfig.ts', 'graph/GraphModel.ts', 'graph/GraphCommandBus.ts', 'graph/GraphController.ts',
             'Main.ts'])
             .concat(libsDir(['**/*.ts']))
             .concat(libsDefinitionsDir('**/*.ts')))
