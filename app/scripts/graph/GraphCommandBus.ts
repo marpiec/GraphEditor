@@ -23,6 +23,17 @@ namespace graph {
             this.callUpdateListeners();
         }
 
+        deleteActiveElement() {
+            if (this.model.activeElement instanceof GraphNode) {
+                const node = this.model.activeElement;
+                this.model.nodes = this.model.nodes.filter(n => n !== node);
+                this.model.edges = this.model.edges.filter(e => e.fromNodeId !== node.id && e.toNodeId != node.id);
+                this.callUpdateListeners();
+            } else if (this.model.activeElement instanceof GraphEdge) {
+                this.model.edges = this.model.edges.filter(e => e !== this.model.activeElement);
+                this.callUpdateListeners();
+            }
+        }
     }
 
 }

@@ -31,6 +31,15 @@ namespace graph {
                 this.updateContainerSize();
             });
 
+            d3.select("body").on("keydown", () => {
+                const deleteKeyCode = 46;
+                console.log(d3.event);
+                if((<KeyboardEvent>d3.event).keyCode === deleteKeyCode) {
+                    this.commandBus.deleteActiveElement();
+                }
+            });
+
+
             this.updateContainerSize();
 
             this.commandBus.registerUpdateListener(() => {
