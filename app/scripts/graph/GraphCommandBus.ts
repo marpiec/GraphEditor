@@ -45,11 +45,14 @@ namespace graph {
             this.callUpdateListeners();
         }
 
-        addNode(x: number, y: number) {
+        addNode(x: number, y: number): GraphNode {
             let maxId = 0;
             this.model.nodes.forEach(n => maxId = Math.max(maxId, n.id));
-            this.model.nodes.push(new GraphNode(maxId + 1, new PositionXY(x, y)));
+            let node = new GraphNode(maxId + 1, new PositionXY(x, y));
+            this.model.nodes.push(node);
+            this.model.activeElement = node;
             this.callUpdateListeners();
+            return node;
         }
 
         toggleDragMode() {
@@ -79,6 +82,9 @@ namespace graph {
                 if(edgeNotYetExists && differentNodes) {
                     this.addEdge(fromNode, toNode);
                 }
+            } else {
+                const newNode = this.addNode(position.x, position.y);
+                this.addEdge(fromNode, newNode);
             }
         }
 
@@ -86,6 +92,7 @@ namespace graph {
             let maxId = 0;
             this.model.nodes.forEach(n => maxId = Math.max(maxId, n.id));
             this.model.edges.push(new GraphEdge(maxId + 1, fromNode.id, toNode.id));
+            this.model.activeElement = toNode;
             this.callUpdateListeners();
         }
     }

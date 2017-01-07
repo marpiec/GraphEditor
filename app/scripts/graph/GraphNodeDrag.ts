@@ -23,6 +23,7 @@ namespace graph {
         }
 
         dragStarted(draggedElement: d3.Selection<GraphNode>, eventPosition: PositionXY, model: GraphNode): void {
+            this.commandBus.activateElement(model);
             this.commandBus.updateNodePosition(model, eventPosition);
         }
 
@@ -59,6 +60,8 @@ namespace graph {
         }
 
         dragStarted(draggedElement: d3.Selection<GraphNode>, eventPosition: PositionXY, model: GraphNode): void {
+            this.commandBus.activateElement(model);
+
             this.edgeMock
                 .classed("hidden", false)
                 .attr("x1", model.position.x)

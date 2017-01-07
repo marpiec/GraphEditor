@@ -62,7 +62,7 @@ namespace graph {
                 this.updateView();
             });
 
-            this.dragModeButton.on("click", () => {
+            this.dragModeButton.on("mousedown", () => {
                this.commandBus.toggleDragMode();
             });
         }
@@ -110,7 +110,7 @@ namespace graph {
                 .attr("x2", (d: GraphEdge) => this.model.nodeById(d.toNodeId).position.x)
                 .attr("y2", (d: GraphEdge) => this.model.nodeById(d.toNodeId).position.y)
                 .classed("active", (d: GraphEdge) => this.model.activeElement === d)
-                .on("click", (d: GraphEdge) => {
+                .on("mousedown", (d: GraphEdge) => {
                     this.commandBus.activateElement(d);
                     (<MouseEvent>d3.event).preventDefault();
                 });
@@ -134,11 +134,7 @@ namespace graph {
                 .attr("cx", (d: GraphNode) => d.position.x)
                 .attr("cy", (d: GraphNode) => d.position.y)
                 .attr("r", this.config.nodesRadius)
-                .classed("active", (d: GraphNode) => this.model.activeElement === d)
-                .on("click", (d: GraphNode) => {
-                    this.commandBus.activateElement(d);
-                    (<MouseEvent>d3.event).preventDefault();
-                });
+                .classed("active", (d: GraphNode) => this.model.activeElement === d);
         }
 
         private initNodesDrag() {
