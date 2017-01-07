@@ -22,6 +22,12 @@
   bottom: 0;
   right: 0;
 
+  line.edgeMock {
+    stroke: #535557;
+    stroke-dasharray: 5 5;
+    stroke-width: 3;
+  }
+
   .edgesLayer {
 
     line.graphEdge {

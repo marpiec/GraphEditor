@@ -16,16 +16,18 @@ namespace graph {
         private edgesLayer: d3.Selection<void>;
         private nodesLayer: d3.Selection<void>;
         private dragModeButton: d3.Selection<void>;
+        private edgeMock: d3.Selection<void>;
 
-        constructor(container: d3.Selection<void>, model: GraphModel, commandBus: GraphCommandBus) {
+        constructor(container: d3.Selection<void>, model: GraphModel, commandBus: GraphCommandBus, config: GraphConfig) {
             this.model = model;
             this.commandBus = commandBus;
 
-            this.config = new GraphConfig();
+            this.config = config;
 
             container.html(`
                 <svg class="canvas">
                     <g class="edgesLayer"></g>
+                    <line class="edgeMock hidden"></line>
                     <g class="nodesLayer"></g>              
                 </svg>
                 <button class="dragModeButton"><i class="fa fa-pencil" aria-hidden="true"></i></button>`);
@@ -35,6 +37,7 @@ namespace graph {
             this.canvas = container.select(".canvas");
             this.edgesLayer = container.select(".edgesLayer");
             this.nodesLayer = container.select(".nodesLayer");
+            this.edgeMock = container.select(".edgeMock");
 
 
             d3.select(window).on('resize', () => {
@@ -140,9 +143,9 @@ namespace graph {
 
         private initNodesDrag() {
             if(this.model.dragMode === DragMode.dragNode) {
-                new GraphNodeDrag(this.nodesLayer.selectAll("circle.graphNode"), this.commandBus).init();
+                GraphNodeDrag.enable(this.nodesLayer.selectAll("circle.graphNode"), this.commandBus);
             } else if(this.model.dragMode === DragMode.drawEdge) {
-                new GraphNodeEdgeDraw(this.nodesLayer.selectAll("circle.graphNode")).init();
+                GraphNodeEdgeDraw.enable(this.nodesLayer.selectAll("circle.graphNode"), this.commandBus, this.model, this.edgeMock);
             }
 
 

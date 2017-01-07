@@ -1,5 +1,4 @@
 ///<reference path="../libs.d.ts/d3-v3.5.d.ts"/>
-
 ///<reference path="graph/GraphController.ts"/>
 
 namespace main {
@@ -7,22 +6,20 @@ namespace main {
     import GraphController = graph.GraphController;
     import GraphCommandBus = graph.GraphCommandBus;
     import GraphModel = graph.GraphModel;
+    import GraphConfig = graph.GraphConfig;
 
     export class Main {
-
-        private model: GraphModel;
-        private commandBus: GraphCommandBus;
-        private mainContainer: d3.Selection<void>;
 
         private graphController: GraphController;
 
         constructor() {
-            this.model = GraphModel.empty();
-            this.commandBus = new GraphCommandBus(this.model);
+            const model = GraphModel.empty();
+            const config = new GraphConfig();
+            const commandBus = new GraphCommandBus(model, config);
 
-            this.mainContainer = d3.select("#main");
+            const mainContainer = d3.select("#main");
 
-            this.graphController = new GraphController(this.mainContainer, this.model, this.commandBus);
+            this.graphController = new GraphController(mainContainer, model, commandBus, config);
         }
 
         start() {
