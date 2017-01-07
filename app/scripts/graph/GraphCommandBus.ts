@@ -90,7 +90,7 @@ namespace graph {
 
         private addEdge(fromNode: GraphNode, toNode: GraphNode) {
             let maxId = 0;
-            this.model.nodes.forEach(n => maxId = Math.max(maxId, n.id));
+            this.model.edges.forEach(n => maxId = Math.max(maxId, n.id));
             this.model.edges.push(new GraphEdge(maxId + 1, fromNode.id, toNode.id));
             this.model.activeElement = toNode;
             this.callUpdateListeners();
