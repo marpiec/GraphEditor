@@ -5,12 +5,10 @@ namespace graph {
     export class GraphCommandBus {
 
         private model: GraphViewModel;
-        private config: GraphConfig;
         private updateListeners: Array<() => void> = [];
 
-        constructor(model: GraphViewModel, config: GraphConfig) {
+        constructor(model: GraphViewModel) {
             this.model = model;
-            this.config = config;
         }
 
         registerUpdateListener(listener: () => void): void {
@@ -71,11 +69,9 @@ namespace graph {
 
         addEdgeIfPossible(fromNode: GraphNode, position: PositionXY) {
 
-            const matchingNodes = this.model.nodes.filter(n =>
-                        Math.pow(n.position.x - position.x, 2) + Math.pow(n.position.y - position.y, 2) < this.config.nodesRadius * this.config.nodesRadius);
+            const toNode = this.model.nodeByPosition(position);
 
-            if(matchingNodes.length > 0) {
-                const toNode = matchingNodes[0];
+            if(toNode) {
                 const edgeNotYetExists = this.model.edges.filter(e => e.fromNodeId === fromNode.id && e.toNodeId === toNode.id ||
                     e.fromNodeId === toNode.id && e.toNodeId === fromNode.id).length == 0;
                 const differentNodes = fromNode.id !== toNode.id;

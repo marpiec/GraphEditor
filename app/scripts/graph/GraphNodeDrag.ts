@@ -43,16 +43,18 @@ namespace graph {
         private commandBus: GraphCommandBus;
         private model: GraphViewModel;
         private edgeMock: d3.Selection<void>;
+        private graphCanvas: d3.Selection<void>;
 
-        constructor(selection: d3.Selection<GraphNode>, commandBus: GraphCommandBus, model: GraphViewModel, edgeMock: d3.Selection<void>) {
+        constructor(selection: d3.Selection<GraphNode>, commandBus: GraphCommandBus, model: GraphViewModel, edgeMock: d3.Selection<void>, graphCanvas: d3.Selection<void>) {
             super(selection);
             this.commandBus = commandBus;
             this.model = model;
             this.edgeMock = edgeMock;
+            this.graphCanvas = graphCanvas;
         }
 
-        static enable(selection: d3.Selection<GraphNode>, commandBus: GraphCommandBus, model: GraphViewModel, edgeMock: d3.Selection<void>) {
-            new GraphNodeEdgeDraw(selection, commandBus, model, edgeMock).init();
+        static enable(selection: d3.Selection<GraphNode>, commandBus: GraphCommandBus, model: GraphViewModel, edgeMock: d3.Selection<void>, graphCanvas: d3.Selection<void>) {
+            new GraphNodeEdgeDraw(selection, commandBus, model, edgeMock, graphCanvas).init();
         }
 
         dragOrigin(draggedElement: d3.Selection<GraphNode>, eventPosition: PositionXY, model: GraphNode): {x: number; y: number} {
@@ -62,25 +64,45 @@ namespace graph {
         dragStarted(draggedElement: d3.Selection<GraphNode>, eventPosition: PositionXY, model: GraphNode): void {
             this.commandBus.activateElement(model);
 
+            this.graphCanvas
+                .classed("dragMode", true);
+
+
             this.edgeMock
                 .classed("hidden", false)
                 .attr("x1", model.position.x)
                 .attr("y1", model.position.y)
                 .attr("x2", eventPosition.x)
                 .attr("y2", eventPosition.y);
+
         }
 
         dragged(draggedElement: d3.Selection<GraphNode>, eventPosition: PositionXY, model: GraphNode): void {
+
+            const node = this.model.nodeByPosition(eventPosition);
+
             this.edgeMock
                 .attr("x1", model.position.x)
-                .attr("y1", model.position.y)
-                .attr("x2", eventPosition.x)
-                .attr("y2", eventPosition.y);
+                .attr("y1", model.position.y);
+
+            if(node) {
+                this.edgeMock
+                    .attr("x2", node.position.x)
+                    .attr("y2", node.position.y);
+            } else {
+                this.edgeMock
+                    .attr("x2", eventPosition.x)
+                    .attr("y2", eventPosition.y);
+            }
+
         }
 
         dragEnded(draggedElement: d3.Selection<GraphNode>, eventPosition: PositionXY, model: GraphNode): void {
             this.edgeMock
                 .classed("hidden", true);
+
+            this.graphCanvas
+                .classed("dragMode", false);
 
             this.commandBus.addEdgeIfPossible(model, eventPosition);
         }

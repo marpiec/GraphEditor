@@ -1,6 +1,5 @@
 ///<reference path="../tools/PositionXY.ts"/>
 ///<reference path="../tools/DragBehavior.ts"/>
-///<reference path="GraphConfig.ts"/>
 ///<reference path="GraphCommandBus.ts"/>
 ///<reference path="GraphNodeDrag.ts"/>
 
@@ -10,7 +9,6 @@ namespace graph {
 
         private model: GraphViewModel;
         private commandBus: GraphCommandBus;
-        private config: GraphConfig;
 
         private canvas: d3.Selection<void>;
         private edgesLayer: d3.Selection<void>;
@@ -18,11 +16,9 @@ namespace graph {
         private dragModeButton: d3.Selection<void>;
         private edgeMock: d3.Selection<void>;
 
-        constructor(container: d3.Selection<void>, model: GraphViewModel, commandBus: GraphCommandBus, config: GraphConfig) {
+        constructor(container: d3.Selection<void>, model: GraphViewModel, commandBus: GraphCommandBus) {
             this.model = model;
             this.commandBus = commandBus;
-
-            this.config = config;
 
             container.html(`
                 <svg class="canvas">
@@ -133,7 +129,7 @@ namespace graph {
             this.nodesLayer.selectAll("circle.graphNode")
                 .attr("cx", (d: GraphNode) => d.position.x)
                 .attr("cy", (d: GraphNode) => d.position.y)
-                .attr("r", this.config.nodesRadius)
+                .attr("r", this.model.nodesRadius)
                 .classed("active", (d: GraphNode) => this.model.activeElement === d);
         }
 
@@ -141,7 +137,7 @@ namespace graph {
             if(this.model.dragMode === DragMode.dragNode) {
                 GraphNodeDrag.enable(this.nodesLayer.selectAll("circle.graphNode"), this.commandBus);
             } else if(this.model.dragMode === DragMode.drawEdge) {
-                GraphNodeEdgeDraw.enable(this.nodesLayer.selectAll("circle.graphNode"), this.commandBus, this.model, this.edgeMock);
+                GraphNodeEdgeDraw.enable(this.nodesLayer.selectAll("circle.graphNode"), this.commandBus, this.model, this.edgeMock, this.canvas);
             }
 
 

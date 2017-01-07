@@ -6,7 +6,6 @@ namespace main {
     import GraphController = graph.GraphController;
     import GraphCommandBus = graph.GraphCommandBus;
     import GraphModel = graph.GraphViewModel;
-    import GraphConfig = graph.GraphConfig;
 
     export class Main {
 
@@ -14,12 +13,11 @@ namespace main {
 
         constructor() {
             const model = GraphModel.empty();
-            const config = new GraphConfig();
-            const commandBus = new GraphCommandBus(model, config);
+            const commandBus = new GraphCommandBus(model);
 
             const mainContainer = d3.select("#main");
 
-            this.graphController = new GraphController(mainContainer, model, commandBus, config);
+            this.graphController = new GraphController(mainContainer, model, commandBus);
         }
 
         start() {
