@@ -4,11 +4,11 @@ namespace graph {
 
     export class GraphCommandBus {
 
-        model: GraphModel;
-        config: GraphConfig;
-        updateListeners: Array<() => void> = [];
+        private model: GraphViewModel;
+        private config: GraphConfig;
+        private updateListeners: Array<() => void> = [];
 
-        constructor(model: GraphModel, config: GraphConfig) {
+        constructor(model: GraphViewModel, config: GraphConfig) {
             this.model = model;
             this.config = config;
         }
@@ -28,14 +28,21 @@ namespace graph {
 
         deleteActiveElement() {
             if (this.model.activeElement instanceof GraphNode) {
-                const node = this.model.activeElement;
-                this.model.nodes = this.model.nodes.filter(n => n !== node);
-                this.model.edges = this.model.edges.filter(e => e.fromNodeId !== node.id && e.toNodeId != node.id);
-                this.callUpdateListeners();
+                this.deleteNode(this.model.activeElement);
             } else if (this.model.activeElement instanceof GraphEdge) {
-                this.model.edges = this.model.edges.filter(e => e !== this.model.activeElement);
-                this.callUpdateListeners();
+                this.deleteEdge(this.model.activeElement);
             }
+        }
+
+        private deleteEdge(edge: GraphEdge) {
+            this.model.edges = this.model.edges.filter(e => e !== edge);
+            this.callUpdateListeners();
+        }
+
+        private deleteNode(node: GraphNode) {
+            this.model.nodes = this.model.nodes.filter(n => n !== node);
+            this.model.edges = this.model.edges.filter(e => e.fromNodeId !== node.id && e.toNodeId != node.id);
+            this.callUpdateListeners();
         }
 
         addNode(x: number, y: number) {
@@ -70,14 +77,16 @@ namespace graph {
                     e.fromNodeId === toNode.id && e.toNodeId === fromNode.id).length == 0;
                 const differentNodes = fromNode.id !== toNode.id;
                 if(edgeNotYetExists && differentNodes) {
-                    let maxId = 0;
-                    this.model.nodes.forEach(n => maxId = Math.max(maxId, n.id));
-                    this.model.edges.push(new GraphEdge(maxId + 1, fromNode.id, matchingNodes[0].id));
-                    this.callUpdateListeners();
+                    this.addEdge(fromNode, toNode);
                 }
-
             }
+        }
 
+        private addEdge(fromNode: GraphNode, toNode: GraphNode) {
+            let maxId = 0;
+            this.model.nodes.forEach(n => maxId = Math.max(maxId, n.id));
+            this.model.edges.push(new GraphEdge(maxId + 1, fromNode.id, toNode.id));
+            this.callUpdateListeners();
         }
     }
 

@@ -40,17 +40,17 @@ namespace graph {
     export class GraphNodeEdgeDraw extends DragBehavior<GraphNode> {
 
         private commandBus: GraphCommandBus;
-        private model: GraphModel;
+        private model: GraphViewModel;
         private edgeMock: d3.Selection<void>;
 
-        constructor(selection: d3.Selection<GraphNode>, commandBus: GraphCommandBus, model: GraphModel, edgeMock: d3.Selection<void>) {
+        constructor(selection: d3.Selection<GraphNode>, commandBus: GraphCommandBus, model: GraphViewModel, edgeMock: d3.Selection<void>) {
             super(selection);
             this.commandBus = commandBus;
             this.model = model;
             this.edgeMock = edgeMock;
         }
 
-        static enable(selection: d3.Selection<GraphNode>, commandBus: GraphCommandBus, model: GraphModel, edgeMock: d3.Selection<void>) {
+        static enable(selection: d3.Selection<GraphNode>, commandBus: GraphCommandBus, model: GraphViewModel, edgeMock: d3.Selection<void>) {
             new GraphNodeEdgeDraw(selection, commandBus, model, edgeMock).init();
         }
 

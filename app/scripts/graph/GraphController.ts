@@ -8,7 +8,7 @@ namespace graph {
 
     export class GraphController {
 
-        private model: GraphModel;
+        private model: GraphViewModel;
         private commandBus: GraphCommandBus;
         private config: GraphConfig;
 
@@ -18,7 +18,7 @@ namespace graph {
         private dragModeButton: d3.Selection<void>;
         private edgeMock: d3.Selection<void>;
 
-        constructor(container: d3.Selection<void>, model: GraphModel, commandBus: GraphCommandBus, config: GraphConfig) {
+        constructor(container: d3.Selection<void>, model: GraphViewModel, commandBus: GraphCommandBus, config: GraphConfig) {
             this.model = model;
             this.commandBus = commandBus;
 

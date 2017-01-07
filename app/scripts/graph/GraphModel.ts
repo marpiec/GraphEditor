@@ -4,7 +4,7 @@ namespace graph {
         dragNode, drawEdge
     }
 
-    export class GraphModel {
+    export class GraphViewModel {
         nodes: Array<GraphNode>;
         edges: Array<GraphEdge>;
 
@@ -18,7 +18,7 @@ namespace graph {
         }
 
         static empty() {
-            return new GraphModel([new GraphNode(1, new PositionXY(100, 100)), new GraphNode(2, new PositionXY(300, 200))], [new GraphEdge(1, 1, 2)]);
+            return new GraphViewModel([], []);
         }
 
         nodeById(id: number): GraphNode {

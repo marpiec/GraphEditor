@@ -5,7 +5,7 @@ namespace main {
 
     import GraphController = graph.GraphController;
     import GraphCommandBus = graph.GraphCommandBus;
-    import GraphModel = graph.GraphModel;
+    import GraphModel = graph.GraphViewModel;
     import GraphConfig = graph.GraphConfig;
 
     export class Main {
