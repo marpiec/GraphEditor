@@ -1,9 +1,14 @@
 namespace graph {
 
+    export enum DragMode {
+        dragNode, drawEdge
+    }
+
     export class GraphModel {
         nodes: Array<GraphNode>;
         edges: Array<GraphEdge>;
 
+        dragMode: DragMode = DragMode.dragNode;
         activeElement: GraphNode | GraphEdge;
 
         constructor(nodes: Array<GraphNode>, edges: Array<GraphEdge>) {

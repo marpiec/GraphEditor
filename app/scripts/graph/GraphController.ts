@@ -9,6 +9,7 @@ namespace graph {
         private canvas: d3.Selection<void>;
         private edgesLayer: d3.Selection<void>;
         private nodesLayer: d3.Selection<void>;
+        private dragModeButton: d3.Selection<void>;
 
         constructor(container: d3.Selection<void>, model: GraphModel, commandBus: GraphCommandBus) {
             this.model = model;
@@ -19,13 +20,16 @@ namespace graph {
             container.html(`
                 <svg class="canvas">
                     <g class="edgesLayer"></g>
-                    <g class="nodesLayer"></g>
-                </svg>`);
+                    <g class="nodesLayer"></g>              
+                </svg>
+                <button class="dragModeButton"><i class="fa fa-pencil" aria-hidden="true"></i></button>`);
 
 
+            this.dragModeButton = container.select(".dragModeButton");
             this.canvas = container.select(".canvas");
             this.edgesLayer = container.select(".edgesLayer");
             this.nodesLayer = container.select(".nodesLayer");
+
 
             d3.select(window).on('resize', () => {
                 this.updateContainerSize();
@@ -48,6 +52,10 @@ namespace graph {
             this.commandBus.registerUpdateListener(() => {
                 this.updateView();
             });
+
+            this.dragModeButton.on("click", () => {
+               this.commandBus.toggleDragMode();
+            });
         }
 
 
@@ -69,6 +77,7 @@ namespace graph {
         updateView() {
             this.updateEdgesView();
             this.updateNodesView();
+            this.updateButtonsView();
         }
 
         private updateEdgesView() {
@@ -120,6 +129,11 @@ namespace graph {
                     this.commandBus.activateElement(d);
                     (<MouseEvent>d3.event).preventDefault();
                 });
+        }
+
+        private updateButtonsView() {
+            this.dragModeButton
+                .classed("enabled", this.model.dragMode === DragMode.drawEdge);
         }
     }
 

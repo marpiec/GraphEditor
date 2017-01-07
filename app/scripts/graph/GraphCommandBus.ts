@@ -41,6 +41,15 @@ namespace graph {
             this.model.nodes.push(new GraphNode(maxId + 1, new PositionXY(x, y)));
             this.callUpdateListeners();
         }
+
+        toggleDragMode() {
+            if(this.model.dragMode === DragMode.dragNode) {
+                this.model.dragMode = DragMode.drawEdge;
+            } else {
+                this.model.dragMode = DragMode.dragNode;
+            }
+            this.callUpdateListeners();
+        }
     }
 
 }

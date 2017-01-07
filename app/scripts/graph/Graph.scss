@@ -1,3 +1,19 @@
+.dragModeButton {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 40px;
+  height: 40px;
+
+  background-color: white;
+  border: 1px solid #999;
+  font-size: 20px;
+
+  &.enabled {
+    background-color: #ff7200;
+  }
+}
+
 .canvas {
 
   position: absolute;
