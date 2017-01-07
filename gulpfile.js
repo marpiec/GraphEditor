@@ -106,8 +106,8 @@ gulp.task('clean-release', function() {
 });
 
 gulp.task('revision', ['clean-release', 'html', 'scripts-libs', 'scripts', 'styles', 'fonts'], function() {
-    const revisionedFilter = gulpFilter(['**/*.*', '!index.html'], {restore: true});
-    const nonRevisionedFilter = gulpFilter(['index.html']);
+    const revisionedFilter = gulpFilter(['**/*.*', '!**/index.html'], {restore: true});
+    const nonRevisionedFilter = gulpFilter(['**/index.html']);
     return gulp.src([releaseDevDir('**/*')])
         .pipe(revisionedFilter)
         .pipe(rev())
