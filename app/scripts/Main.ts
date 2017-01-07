@@ -1,3 +1,5 @@
+///<reference path="../libs.d.ts/d3-v3.5.d.ts"/>
+
 ///<reference path="graph/GraphController.ts"/>
 
 namespace main {
