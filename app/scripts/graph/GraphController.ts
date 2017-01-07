@@ -78,6 +78,7 @@ namespace graph {
             this.updateEdgesView();
             this.updateNodesView();
             this.updateButtonsView();
+            this.initNodesDrag();
         }
 
         private updateEdgesView() {
@@ -129,6 +130,16 @@ namespace graph {
                     this.commandBus.activateElement(d);
                     (<MouseEvent>d3.event).preventDefault();
                 });
+        }
+
+        private initNodesDrag() {
+            if(this.model.dragMode === DragMode.dragNode) {
+                new GraphNodeDrag(this.nodesLayer.selectAll("circle.graphNode"), this.commandBus).init();
+            } else if(this.model.dragMode === DragMode.drawEdge) {
+                new GraphNodeEdgeDraw(this.nodesLayer.selectAll("circle.graphNode")).init();
+            }
+
+
         }
 
         private updateButtonsView() {

@@ -50,6 +50,11 @@ namespace graph {
             }
             this.callUpdateListeners();
         }
+
+        updateNodePosition(node: GraphNode, position: PositionXY) {
+            node.position = position;
+            this.callUpdateListeners();
+        }
     }
 
 }
