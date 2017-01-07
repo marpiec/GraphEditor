@@ -1,3 +1,9 @@
+///<reference path="../tools/PositionXY.ts"/>
+///<reference path="../tools/DragBehavior.ts"/>
+///<reference path="GraphConfig.ts"/>
+///<reference path="GraphCommandBus.ts"/>
+///<reference path="GraphNodeDrag.ts"/>
+
 namespace graph {
 
     export class GraphController {

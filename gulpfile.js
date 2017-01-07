@@ -13,7 +13,6 @@ var concat = require('gulp-concat');
 var buildDir = function(path) {return './build/' + path};
 var tmpDir = function(path) {return './build/tmp/' + path};
 var appDir = function(path) {return './app/' + path};
-var srcDir = function(paths) {return paths.map(function(path) {return './app/scripts/' + path})};
 var libsDir = function(paths) {return paths.map(function(path) {return './app/libs.d.ts/' + path})};
 var libsDefinitionsDir = function(path) {return './node_modules/@types/' + path};
 var stylesDir = function(path) {return './app/styles/' + path};
@@ -41,27 +40,13 @@ gulp.task('scripts-libs', function() {
     ]).pipe(concat('libs.js')).pipe(gulp.dest(releaseDevDir('scripts/')))
 });
 
+var tsProject = ts.createProject('./app/scripts/tsconfig.json');
 
 gulp.task('scripts', function () {
 
-    var tsResult = gulp.src(
-        srcDir([
-            'tools/PositionXY.ts', 'tools/DragBehavior.ts',
-            'graph/GraphConfig.ts', 'graph/GraphModel.ts', 'graph/GraphNodeDrag.ts  ', 'graph/GraphCommandBus.ts', 'graph/GraphController.ts',
-            'Main.ts'])
-            .concat(libsDir(['**/*.ts']))
-            .concat(libsDefinitionsDir('**/*.ts')))
+    var tsResult = tsProject.src()
         .pipe(sourcemaps.init()) // This means sourcemaps will be generated
-        .pipe(ts({
-            noImplicitAny: true,
-            removeComments: true,
-            preserveConstEnums: true,
-            declaration: true, // Generates corresponding d.ts file
-            target: 'ES5',
-            jsx: 'preserve',
-            noResolve: true,
-            outFile: "main.js"
-        }));
+        .pipe(tsProject());
 
     return merge([
         tsResult.dts

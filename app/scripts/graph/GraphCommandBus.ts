@@ -1,3 +1,5 @@
+///<reference path="GraphModel.ts"/>
+
 namespace graph {
 
     export class GraphCommandBus {

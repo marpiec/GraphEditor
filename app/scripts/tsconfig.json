@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "noImplicitAny": true,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "strictNullChecks": true,
+    "skipDefaultLibCheck": false, // switch to true to speed up compilation
+    "skipLibCheck": false, // switch to true to speed up compilation
+    "sourceMap": true,
+    "target": "ES5",
+    "outFile": "../../main.js",
+    "outDir": "."
+  },
+  "include": [
+    "**/*",
+    "../libs.d.ts/**/*",
+    "../../node_modules/@types/**/*"
+  ]
+}

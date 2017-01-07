@@ -9,7 +9,7 @@ namespace graph {
         edges: Array<GraphEdge>;
 
         dragMode: DragMode = DragMode.dragNode;
-        activeElement: GraphNode | GraphEdge;
+        activeElement: GraphNode | GraphEdge | null;
 
         constructor(nodes: Array<GraphNode>, edges: Array<GraphEdge>) {
             this.nodes = nodes;
@@ -21,8 +21,8 @@ namespace graph {
             return new GraphModel([new GraphNode(1, new PositionXY(100, 100)), new GraphNode(2, new PositionXY(300, 200))], [new GraphEdge(1, 1, 2)]);
         }
 
-        nodeById(id: number) {
-            return _(this.nodes).find((n: GraphNode) => n.id === id);
+        nodeById(id: number): GraphNode {
+            return <GraphNode>_(this.nodes).find((n: GraphNode) => n.id === id);
         }
     }
 

@@ -1,3 +1,6 @@
+///<reference path="../tools/DragBehavior.ts"/>
+
+
 namespace graph {
 
     import DragBehavior = d3tools.DragBehavior;
