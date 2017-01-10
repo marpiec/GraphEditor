@@ -6,7 +6,7 @@ namespace d3tools {
      */
     export abstract class DragBehavior<T> {
 
-        private selection: d3.Selection<T>;
+        private readonly selection: d3.Selection<T>;
         /** Dragged distance is used to determine if it was a drag, or a click. */
         private draggedDistance: number = 0;
 

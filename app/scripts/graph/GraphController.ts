@@ -7,14 +7,14 @@ namespace graph {
 
     export class GraphController {
 
-        private model: GraphViewModel;
-        private commandBus: GraphCommandBus;
+        private readonly model: GraphViewModel;
+        private readonly commandBus: GraphCommandBus;
 
-        private canvas: d3.Selection<void>;
-        private edgesLayer: d3.Selection<void>;
-        private nodesLayer: d3.Selection<void>;
-        private dragModeButton: d3.Selection<void>;
-        private edgeMock: d3.Selection<void>;
+        private readonly canvas: d3.Selection<void>;
+        private readonly edgesLayer: d3.Selection<void>;
+        private readonly nodesLayer: d3.Selection<void>;
+        private readonly dragModeButton: d3.Selection<void>;
+        private readonly edgeMock: d3.Selection<void>;
 
         constructor(container: d3.Selection<void>, model: GraphViewModel, commandBus: GraphCommandBus) {
             this.model = model;

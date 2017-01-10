@@ -4,8 +4,8 @@ namespace graph {
 
     export class GraphCommandBus {
 
-        private model: GraphViewModel;
-        private updateListeners: Array<() => void> = [];
+        private readonly model: GraphViewModel;
+        private readonly updateListeners: Array<() => void> = [];
 
         constructor(model: GraphViewModel) {
             this.model = model;

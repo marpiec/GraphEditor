@@ -7,7 +7,7 @@ namespace graph {
 
     export class GraphNodeDrag extends DragBehavior<GraphNode> {
 
-        private commandBus: GraphCommandBus;
+        private readonly commandBus: GraphCommandBus;
 
         private constructor(selection: d3.Selection<GraphNode>, commandBus: GraphCommandBus) {
             super(selection);
@@ -40,10 +40,10 @@ namespace graph {
 
     export class GraphNodeEdgeDraw extends DragBehavior<GraphNode> {
 
-        private commandBus: GraphCommandBus;
-        private model: GraphViewModel;
-        private edgeMock: d3.Selection<void>;
-        private graphCanvas: d3.Selection<void>;
+        private readonly commandBus: GraphCommandBus;
+        private readonly model: GraphViewModel;
+        private readonly edgeMock: d3.Selection<void>;
+        private readonly graphCanvas: d3.Selection<void>;
 
         constructor(selection: d3.Selection<GraphNode>, commandBus: GraphCommandBus, model: GraphViewModel, edgeMock: d3.Selection<void>, graphCanvas: d3.Selection<void>) {
             super(selection);
