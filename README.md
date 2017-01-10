@@ -1,19 +1,19 @@
 #### Simple Graph Editor - example
 
-Example of Visual graph editor leveraging those technologies:
+Example of Visual Graph Editor leveraging those technologies:
 
 1. Typescript
-2. Gulp.js
-3. D3.js
-4. Drag&Drop
-5. Font Awesome
-6. Sass
-7. Lodash
+1. Gulp.js
+1. D3
+1. Font Awesome
+1. Sass
+1. Lodash
+1. Drag & Drop
 
 
 [Try it](http://marpiec.github.io/GraphEditor/)
 
 Basic usage instruction:
 
-1. Double click to add a node
-2. To draw edges activate pencil button (upper-left), otherwise you will drag nodes.\
+1. Double click anywhere to add a node
+1. To draw edges activate pencil button (upper-left) then try to drag a node.
