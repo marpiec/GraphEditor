@@ -4,23 +4,27 @@ namespace graph {
         dragNode, drawEdge
     }
 
-    export class GraphViewModel {
-        nodes: Array<GraphNode>;
-        edges: Array<GraphEdge>;
+    export class GraphNode {
+        constructor(readonly id: number, public position: PositionXY) {}
+    }
 
-        dragMode: DragMode = DragMode.dragNode;
-        activeElement: GraphNode | GraphEdge | null;
+    export class GraphEdge {
+        constructor(readonly id: number, public fromNodeId: number, public toNodeId: number) {}
+    }
+
+    export class GraphViewModel {
 
         readonly nodesRadius = 30;
 
-        constructor(nodes: Array<GraphNode>, edges: Array<GraphEdge>) {
-            this.nodes = nodes;
-            this.edges = edges;
-            this.activeElement = null;
+        constructor(public nodes: Array<GraphNode>,
+                    public edges: Array<GraphEdge>,
+                    public dragMode: DragMode,
+                    public activeElement: GraphNode | GraphEdge | null) {
+
         }
 
         static empty() {
-            return new GraphViewModel([], []);
+            return new GraphViewModel([], [], DragMode.dragNode, null);
         }
 
         nodeById(id: number): GraphNode {
@@ -36,30 +40,8 @@ namespace graph {
             } else {
                 return null;
             }
-
         }
-    }
 
-    export class GraphNode {
-        id: number;
-        position: PositionXY;
-
-        constructor(id: number, position: PositionXY) {
-            this.id = id;
-            this.position = position;
-        }
-    }
-
-    export class GraphEdge {
-        id: number;
-        fromNodeId: number;
-        toNodeId: number;
-
-        constructor(id: number, fromNodeId: number, toNodeId: number) {
-            this.id = id;
-            this.fromNodeId = fromNodeId;
-            this.toNodeId = toNodeId;
-        }
     }
 
 }
