@@ -11,10 +11,7 @@ var gulpFilter = require('gulp-filter');
 var concat = require('gulp-concat');
 
 var buildDir = function(path) {return './build/' + path};
-var tmpDir = function(path) {return './build/tmp/' + path};
 var appDir = function(path) {return './app/' + path};
-var libsDir = function(paths) {return paths.map(function(path) {return './app/libs.d.ts/' + path})};
-var libsDefinitionsDir = function(path) {return './node_modules/@types/' + path};
 var stylesDir = function(path) {return './app/styles/' + path};
 var npmModulesDir = function(path) {return './node_modules/' + path};
 var releaseDevDir = function(path) {return './build/releaseDev/' + path};
@@ -32,10 +29,7 @@ gulp.task('html', function() {
 
 gulp.task('scripts-libs', function() {
     return gulp.src([
-        npmDependency('jquery/dist/jquery.js', 'jquery/dist/jquery.min.js', true), // JQuery
         npmDependency('lodash/lodash.js', 'lodash/lodash.min.js', true), // Utility library
-        npmDependency('moment/src/moment.js', 'moment/min/moment.min.js', true), // Date and time manipulation library
-        npmDependency('i18next/dist/umd/i18next.js', 'i18next/dist/umd/i18next.min.js', true), // Internationalization library
         npmDependency('d3/d3.js', 'd3/d3.min.js', true) // Data/HTML binding library
     ]).pipe(concat('libs.js')).pipe(gulp.dest(releaseDevDir('scripts/')))
 });
@@ -95,7 +89,6 @@ gulp.task('browser-sync', ['scripts'], function() {
 gulp.task('clean', function() {
     return merge([
         gulp.src(buildDir(''), {read: false}).pipe(clean()),
-        gulp.src(tmpDir(''), {read: false}).pipe(clean()),
         gulp.src(releaseDevDir(''), {read: false}).pipe(clean()),
         gulp.src(releaseDir(''), {read: false}).pipe(clean())]);
 });
