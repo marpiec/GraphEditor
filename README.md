@@ -10,8 +10,9 @@ Example of Visual Graph Editor leveraging those technologies:
 1. Lodash
 1. Drag & Drop
 
+### Try it out
 
-[Try it](http://marpiec.github.io/GraphEditor/)
+[Graph editor](http://marpiec.github.io/GraphEditor/)
 
 Basic usage instruction:
 
